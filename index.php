@@ -1,49 +1,39 @@
 <?php
 
-$arr = [111, 112, 11];
+$arr = [];
 
-$complete = [];
-$numbers_with_0 = [];
+$tree = [];
+$maxLength = 0;
 
-$max_length = 0;
-
-// находим максимальную длину числа в массиве
+// Ищем максимальную длину числа
 foreach ($arr as $number) {
-    $len = strlen((string) $number);
-    if ($len > $max_length) {
-        $max_length = $len;
+    $length = strlen((string) $number);
+    if ($length > $maxLength) {
+        $maxLength = $length;
     }
 }
 
-// приводим все числа к одной длине
-// если число короче, добавляем нули слева
+// Строим дерево по разрядам
 foreach ($arr as $number) {
-    $numbers_with_0[] = str_pad((string) $number, $max_length, "0", STR_PAD_LEFT);
-}
+    $padded = str_pad((string) $number, $maxLength, '0', STR_PAD_LEFT);
 
-// строим вложенный массив по цифрам
-foreach ($numbers_with_0 as $number) {
-    // ссылка на текущий узел дерева
-    $node = &$complete;
+    $node = &$tree;
 
-    // проходим по цифрам числа слева направо
-    foreach (str_split($number) as $digit) {
-        // если такой ветки ещё нет — создаём
+    foreach (str_split($padded) as $digit) {
         if (!isset($node[$digit])) {
             $node[$digit] = [];
         }
 
-        // переходим глубже по дереву
         $node = &$node[$digit];
     }
 
-    // помечаем конец числа
+    // $node['_count'] = ($node['_count'] ?? 0) + 1;
     $node = true;
-    unset($node);
+    // unset($node);
 }
 
 echo '<pre>';
-var_export($complete);
+var_export($tree);
 echo '</pre>';
 
 /*
@@ -55,8 +45,5 @@ echo '</pre>';
 либо перейти в уже существующую ветку, либо создать новую.
 В конце пути добавляю true.
 
-Изначально хотел реализовать через рекурсию,
-передавая оставшиеся цифры в функцию, пока не дойду до конца числа.
-В Python подобную задачу обычно можно решать без явных ссылок,
-потому что переменная при присваивании хранит ссылку на изменяемый объект.
+Я решил задачу через построение дерева и ссылку на текущий узел. Альтернативно это можно сделать рекурсией: на каждом уровне брать цифру и передавать остаток числа глубже. Еще можно было бы обойтись без ссылок и собирать массив через возвращаемые значения функции, но в PHP это обычно менее удобно и менее читаемо для такой задачи.
 */
