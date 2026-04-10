@@ -1,6 +1,6 @@
 <?php
 
-$arr = [];
+$arr = [134, 1121, 34, 121];
 
 $tree = [];
 $maxLength = 0;
