@@ -29,7 +29,6 @@ foreach ($arr as $number) {
 
     // $node['_count'] = ($node['_count'] ?? 0) + 1;
     $node = true;
-    // unset($node);
 }
 
 echo '<pre>';
