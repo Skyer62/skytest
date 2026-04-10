@@ -26,7 +26,7 @@ foreach ($arr as $number) {
 
         $node = &$node[$digit];
     }
-
+    // если нужно подсчитать сколько раз одно и то же число встретилось в массиве
     // $node['_count'] = ($node['_count'] ?? 0) + 1;
     $node = true;
 }
