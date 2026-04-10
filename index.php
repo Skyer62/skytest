@@ -2,7 +2,7 @@
 
 $arr = [134, 1121, 34, 121];
 
-$tree = [];
+$result = [];
 $maxLength = 0;
 
 // Ищем максимальную длину числа
@@ -17,7 +17,7 @@ foreach ($arr as $number) {
 foreach ($arr as $number) {
     $padded = str_pad((string) $number, $maxLength, '0', STR_PAD_LEFT);
 
-    $node = &$tree;
+    $node = &$result;
 
     foreach (str_split($padded) as $digit) {
         if (!isset($node[$digit])) {
@@ -33,7 +33,7 @@ foreach ($arr as $number) {
 }
 
 echo '<pre>';
-var_export($tree);
+var_export($result);
 echo '</pre>';
 
 /*
